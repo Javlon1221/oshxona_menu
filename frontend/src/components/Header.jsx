@@ -63,8 +63,8 @@ const Header = () => {
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled 
-            ? 'bg-white/95 backdrop-blur-md shadow-lg' 
-            : 'bg-white shadow-md'
+            ? 'bg-[color:var(--brand-bg)]/90 backdrop-blur-md shadow-lg border-b border-black/10' 
+            : 'bg-[color:var(--brand-bg)] shadow-md border-b border-black/10'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,16 +76,16 @@ const Header = () => {
               aria-label="Oshxona bosh sahifa"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl blur opacity-75 group-hover:opacity-100 transition-opacity"></div>
-                <div className="relative w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-500 via-red-500 to-orange-600 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 shadow-lg">
+                <div className="absolute inset-0 bg-[color:var(--brand-accent)] rounded-xl blur opacity-25 group-hover:opacity-40 transition-opacity"></div>
+                <div className="relative w-10 h-10 md:w-12 md:h-12 bg-[color:var(--brand-primary)] rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 shadow-lg ring-1 ring-black/10">
                   <ChefHat className="w-6 h-6 md:w-7 md:h-7 text-white" strokeWidth={2.5} />
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent group-hover:from-orange-500 group-hover:to-red-500 transition-all duration-300">
+                <span className="text-xl md:text-2xl font-bold text-[color:var(--brand-primary)] group-hover:text-[#5A3F36] transition-colors duration-300">
                   Oshxona
                 </span>
-                <span className="text-[10px] md:text-xs text-gray-500 font-medium -mt-1">
+                <span className="text-[10px] md:text-xs text-black/60 font-medium -mt-1">
                   Mazali taomlar
                 </span>
               </div>
@@ -101,8 +101,8 @@ const Header = () => {
                   className={({ isActive }) =>
                     `flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm lg:text-base transition-all duration-300 ${
                       isActive
-                        ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md scale-105'
-                        : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600'
+                        ? 'bg-[color:var(--brand-accent)] text-white shadow-md scale-105'
+                        : 'text-[color:var(--brand-text)] hover:bg-black/5 hover:text-[color:var(--brand-primary)]'
                     }`
                   }
                 >
@@ -117,12 +117,12 @@ const Header = () => {
               {/* Cart */}
               <Link
                 to="/cart"
-                className="relative p-2 text-gray-700 hover:text-orange-500 transition-all duration-300 hover:scale-110 group"
+                className="relative p-2 text-[color:var(--brand-text)] hover:text-[color:var(--brand-accent)] transition-all duration-300 hover:scale-110 group"
                 aria-label="Savatcha"
               >
                 <ShoppingCart className="w-6 h-6 md:w-7 md:h-7" />
                 {totalQuantity > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse shadow-lg">
+                  <span className="absolute -top-1 -right-1 bg-[color:var(--brand-accent)] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse shadow-lg">
                     {totalQuantity}
                   </span>
                 )}
@@ -134,7 +134,7 @@ const Header = () => {
                   <>
                     <Link
                       to="/profile"
-                      className="flex items-center space-x-2 px-4 py-2 rounded-lg text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-all duration-300 group"
+                      className="flex items-center space-x-2 px-4 py-2 rounded-lg text-[color:var(--brand-text)] hover:bg-black/5 hover:text-[color:var(--brand-primary)] transition-all duration-300 group"
                     >
                       <User className="w-5 h-5 group-hover:scale-110 transition-transform" />
                       <span className="font-medium">{user?.ism || 'Profil'}</span>
@@ -152,7 +152,7 @@ const Header = () => {
 
                     <button
                       onClick={handleLogout}
-                      className="flex items-center space-x-2 px-4 py-2 rounded-lg text-gray-700 hover:bg-red-50 hover:text-red-600 transition-all duration-300 group"
+                      className="flex items-center space-x-2 px-4 py-2 rounded-lg text-[color:var(--brand-text)] hover:bg-red-50 hover:text-red-700 transition-all duration-300 group"
                       type="button"
                     >
                       <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -163,13 +163,13 @@ const Header = () => {
                   <>
                     <Link
                       to="/login"
-                      className="px-4 py-2 rounded-lg text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-all duration-300 font-medium"
+                      className="px-4 py-2 rounded-lg text-[color:var(--brand-text)] hover:bg-black/5 hover:text-[color:var(--brand-primary)] transition-all duration-300 font-medium"
                     >
                       Kirish
                     </Link>
                     <Link
                       to="/register"
-                      className="px-6 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 font-medium"
+                      className="px-6 py-2 rounded-lg bg-[color:var(--brand-accent)] text-white hover:bg-[#F25F2F] transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 font-medium"
                     >
                       Ro'yxatdan o'tish
                     </Link>
@@ -180,7 +180,7 @@ const Header = () => {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen((s) => !s)}
-                className="md:hidden p-2 text-gray-700 hover:text-orange-500 transition-all duration-300 hover:scale-110"
+                className="md:hidden p-2 text-[color:var(--brand-text)] hover:text-[color:var(--brand-accent)] transition-all duration-300 hover:scale-110"
                 aria-controls="mobile-menu"
                 aria-expanded={isMenuOpen}
                 aria-label={isMenuOpen ? 'Menyuni yoping' : 'Menyuni oching'}
@@ -200,7 +200,7 @@ const Header = () => {
       {/* Mobile Menu Backdrop */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300"
           onClick={() => setIsMenuOpen(false)}
           aria-hidden="true"
         />
@@ -210,7 +210,7 @@ const Header = () => {
       <aside
         id="mobile-menu"
         ref={menuRef}
-        className={`fixed top-0 right-0 w-[85%] max-w-sm h-full bg-gradient-to-b from-white to-orange-50 z-50 md:hidden shadow-2xl transform transition-all duration-300 ease-out ${
+        className={`fixed top-0 right-0 w-[85%] max-w-sm h-full bg-[color:var(--brand-bg)] z-50 md:hidden shadow-2xl transform transition-all duration-300 ease-out border-l border-black/10 ${
           isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
         }`}
         aria-hidden={!isMenuOpen}
@@ -220,16 +220,16 @@ const Header = () => {
           {/* Mobile Menu Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 bg-[color:var(--brand-primary)] rounded-lg flex items-center justify-center shadow-lg ring-1 ring-black/10">
                 <ChefHat className="w-6 h-6 text-white" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+              <span className="text-xl font-bold text-[color:var(--brand-primary)]">
                 Menyu
               </span>
             </div>
             <button
               onClick={() => setIsMenuOpen(false)}
-              className="p-2 text-gray-600 hover:text-orange-500 transition-colors"
+              className="p-2 text-black/60 hover:text-[color:var(--brand-accent)] transition-colors"
               aria-label="Yopish"
             >
               <X className="w-6 h-6" />
@@ -242,7 +242,7 @@ const Header = () => {
               <Link
                 key={link.to}
                 to={link.to}
-                className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-white hover:text-orange-600 hover:shadow-md transition-all duration-300 font-medium group"
+                className="flex items-center space-x-3 px-4 py-3 rounded-xl text-[color:var(--brand-text)] hover:bg-black/5 hover:text-[color:var(--brand-primary)] hover:shadow-md transition-all duration-300 font-medium group"
                 onClick={() => setIsMenuOpen(false)}
                 ref={idx === 0 ? firstLinkRef : null}
               >
@@ -253,12 +253,12 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Footer (Auth) */}
-          <div className="mt-auto pt-6 border-t border-orange-200">
+          <div className="mt-auto pt-6 border-t border-black/10">
             {isAuthenticated ? (
               <div className="space-y-2">
                 <Link
                   to="/profile"
-                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-white text-gray-700 hover:text-orange-600 hover:shadow-md transition-all duration-300 font-medium group"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-black/5 text-[color:var(--brand-text)] hover:text-[color:var(--brand-primary)] hover:shadow-md transition-all duration-300 font-medium group"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <User className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -278,7 +278,7 @@ const Header = () => {
 
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 hover:shadow-md transition-all duration-300 font-medium group"
+                  className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-red-50 text-red-700 hover:bg-red-100 hover:shadow-md transition-all duration-300 font-medium group"
                   type="button"
                 >
                   <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -289,14 +289,14 @@ const Header = () => {
               <div className="space-y-2">
                 <Link
                   to="/login"
-                  className="block px-4 py-3 rounded-xl bg-white text-gray-700 hover:text-orange-600 hover:shadow-md transition-all duration-300 font-medium text-center"
+                  className="block px-4 py-3 rounded-xl bg-black/5 text-[color:var(--brand-text)] hover:text-[color:var(--brand-primary)] hover:shadow-md transition-all duration-300 font-medium text-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Kirish
                 </Link>
                 <Link
                   to="/register"
-                  className="block px-4 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-md hover:shadow-lg font-medium text-center"
+                  className="block px-4 py-3 rounded-xl bg-[color:var(--brand-accent)] text-white hover:bg-[#F25F2F] transition-all duration-300 shadow-md hover:shadow-lg font-medium text-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Ro'yxatdan o'tish

@@ -7,17 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#fff7ed',
-          100: '#ffedd5',
-          200: '#fed7aa',
-          300: '#fdba74',
-          400: '#fb923c',
-          500: '#f97316',
-          600: '#ea580c',
-          700: '#c2410c',
-          800: '#9a3412',
-          900: '#7c2d12',
+        brand: {
+          bg: '#FFF8E1',        // krem fon
+          text: '#2E2E2E',      // asosiy matn
+          primary: '#6D4C41',   // jigarrang (milliy asos)
+          secondary: '#4CAF50', // yashil (halollik/yangi)
+          accent: '#FF7043',    // to'q sariq (CTA)
         },
       },
       fontFamily: {

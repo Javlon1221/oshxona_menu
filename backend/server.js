@@ -569,13 +569,15 @@ router.get('/recipes/:id', async (req, res) => {
 // Ovqat qo'shish (Admin)
 router.post('/recipes', verifyAdmin, upload.single('image'), async (req, res) => {
   try {
-    const { ovqat_nomi, tayyorlanish_vaqti, masalliqlar, narxi, tavsif } = req.body;
+    const { ovqat_nomi, tayyorlanish_vaqti, masalliqlar, narxi, tavsif, image_path } = req.body;
     
     if (!ovqat_nomi?.trim()) {
       return res.status(400).json({ message: 'Ovqat nomi majburiy' });
     }
     
-    const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+    const normalizedImagePath =
+      typeof image_path === 'string' && image_path.trim() ? image_path.trim() : null;
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : normalizedImagePath;
     
     const result = await pool.query(
       `INSERT INTO ovqatlar (ovqat_nomi, tayyorlanish_vaqti, masalliqlar, narxi, image_path, tavsif)
@@ -607,7 +609,7 @@ router.post('/recipes', verifyAdmin, upload.single('image'), async (req, res) =>
 router.put('/recipes/:id', verifyAdmin, upload.single('image'), async (req, res) => {
   try {
     const { id } = req.params;
-    const { ovqat_nomi, tayyorlanish_vaqti, masalliqlar, narxi, tavsif } = req.body;
+    const { ovqat_nomi, tayyorlanish_vaqti, masalliqlar, narxi, tavsif, image_path } = req.body;
     
     // Eski ovqatni olish
     const oldRecipe = await pool.query('SELECT * FROM ovqatlar WHERE id=$1', [id]);
@@ -617,14 +619,25 @@ router.put('/recipes/:id', verifyAdmin, upload.single('image'), async (req, res)
     
     // Yangi rasm yuklangan bo'lsa, eskisini o'chirish
     let imagePath = oldRecipe.rows[0].image_path;
+    const hasLocalImagePath = (value) =>
+      typeof value === 'string' && value.startsWith('/uploads/');
+    const normalizedImagePath = typeof image_path === 'string' ? image_path.trim() : '';
     if (req.file) {
-      if (imagePath) {
+      if (hasLocalImagePath(imagePath)) {
         const fullOld = safeJoin(__dirname, imagePath);
         if (fs.existsSync(fullOld)) {
           try { fs.unlinkSync(fullOld); } catch (e) { console.error('Old image delete error:', e); }
         }
       }
       imagePath = `/uploads/${req.file.filename}`;
+    } else if (normalizedImagePath) {
+      if (hasLocalImagePath(imagePath) && imagePath !== normalizedImagePath) {
+        const fullOld = safeJoin(__dirname, imagePath);
+        if (fs.existsSync(fullOld)) {
+          try { fs.unlinkSync(fullOld); } catch (e) { console.error('Old image delete error:', e); }
+        }
+      }
+      imagePath = normalizedImagePath;
     }
     
     const result = await pool.query(
@@ -653,6 +666,16 @@ router.put('/recipes/:id', verifyAdmin, upload.single('image'), async (req, res)
 router.delete('/recipes/:id', verifyAdmin, async (req, res) => {
   try {
     const { id } = req.params;
+
+    const linkedOrders = await pool.query(
+      'SELECT COUNT(*)::int AS count FROM buyurtmalar WHERE ovqat_id=$1',
+      [id]
+    );
+    if (linkedOrders.rows[0]?.count > 0) {
+      return res.status(409).json({
+        message: "Bu taom buyurtmalarda ishlatilgan. Avval bog'liq buyurtmalarni o'chiring yoki statusini yangilang."
+      });
+    }
     
     const result = await pool.query(
       'DELETE FROM ovqatlar WHERE id=$1 RETURNING *',
@@ -665,7 +688,7 @@ router.delete('/recipes/:id', verifyAdmin, async (req, res) => {
     
     // Rasmni o'chirish
     const imagePath = result.rows[0].image_path;
-    if (imagePath) {
+    if (typeof imagePath === 'string' && imagePath.startsWith('/uploads/')) {
       const fullPath = safeJoin(__dirname, imagePath);
       if (fs.existsSync(fullPath)) {
         fs.unlink(fullPath, (err) => {
@@ -680,7 +703,22 @@ router.delete('/recipes/:id', verifyAdmin, async (req, res) => {
     });
   } catch (err) {
     console.error('Delete recipe error:', err);
-    res.status(500).json({ message: 'Ovqatni o\'chirishda xatolik' });
+    if (err?.code === '23503') {
+      return res.status(409).json({
+        message: "Bu taom buyurtmalar bilan bog'langanligi sabab o'chirib bo'lmaydi."
+      });
+    }
+    if (String(err?.code || '').startsWith('23')) {
+      return res.status(409).json({
+        message: "Ma'lumotlar bog'liqligi sabab o'chirib bo'lmadi.",
+        code: err.code
+      });
+    }
+    res.status(500).json({
+      message: 'Ovqatni o\'chirishda xatolik',
+      code: err?.code || null,
+      detail: err?.detail || err?.message || null
+    });
   }
 });
 

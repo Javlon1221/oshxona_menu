@@ -25,8 +25,8 @@ const authSlice = createSlice({
             try {
                 localStorage.setItem('token', action.payload.token);
                 localStorage.setItem('user', JSON.stringify(action.payload.user));
-            } catch (e) {
-                // ignore
+            } catch (error) {
+                console.warn('Failed to persist auth to localStorage:', error);
             }
         },
         loginFailure: (state, action) => {
@@ -49,7 +49,9 @@ const authSlice = createSlice({
             state.user = { ...state.user, ...action.payload };
             try {
                 localStorage.setItem('user', JSON.stringify(state.user));
-            } catch (e) {}
+            } catch (error) {
+                console.warn('Failed to update user in localStorage:', error);
+            }
         }
     }
 });

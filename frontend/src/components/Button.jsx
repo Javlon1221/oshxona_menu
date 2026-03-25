@@ -11,12 +11,12 @@ const Button = ({
     className = '',
     ...props 
 }) => {
-    const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 active:scale-95';
+    const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[color:var(--brand-bg)] transform hover:scale-105 active:scale-95';
     
     const variants = {
-        primary: 'bg-orange-500 text-white hover:bg-orange-600 focus:ring-orange-500',
-        secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500',
-        outline: 'border border-orange-500 text-orange-500 hover:bg-orange-50 focus:ring-orange-500',
+        primary: 'bg-[color:var(--brand-accent)] text-white hover:bg-[#F25F2F] focus:ring-[color:var(--brand-accent)]',
+        secondary: 'bg-[color:var(--brand-secondary)] text-white hover:bg-[#3F9C43] focus:ring-[color:var(--brand-secondary)]',
+        outline: 'border border-[color:var(--brand-primary)] text-[color:var(--brand-primary)] hover:bg-[#6D4C41]/10 focus:ring-[color:var(--brand-primary)]',
         danger: 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500',
         success: 'bg-green-500 text-white hover:bg-green-600 focus:ring-green-500'
     };

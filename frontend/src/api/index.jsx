@@ -25,10 +25,8 @@ api.interceptors.request.use(
     const token = localStorage.getItem("token");
     if (token) config.headers.Authorization = `Bearer ${token}`;
 
-    try {
-      const full = fullUrlFromConfig(config);
-      console.debug(`[api request] ${String(config.method).toUpperCase()} ${full}`);
-    } catch (e) {}
+    const full = fullUrlFromConfig(config);
+    console.debug(`[api request] ${String(config.method).toUpperCase()} ${full}`);
 
     return config;
   },
@@ -37,10 +35,8 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (res) => {
-    try {
-      const full = fullUrlFromConfig(res.config);
-      console.debug(`[api response] ${res.status} ${full}`);
-    } catch (e) {}
+    const full = fullUrlFromConfig(res.config);
+    console.debug(`[api response] ${res.status} ${full}`);
     return res;
   },
   (error) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 
 const backdropVariants = {
   hidden: { opacity: 0 },
@@ -203,7 +203,7 @@ const Modal = ({
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
-        <motion.div
+        <Motion.div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           variants={backdropVariants}
           initial="hidden"
@@ -219,7 +219,7 @@ const Modal = ({
           />
           
           {/* Modal content */}
-          <motion.div
+          <Motion.div
             ref={modalRef}
             onClick={(e) => e.stopPropagation()}
             variants={modalVariants}
@@ -231,11 +231,11 @@ const Modal = ({
             aria-labelledby={title ? "modal-title" : undefined}
             aria-describedby="modal-content"
             tabIndex={-1}
-            className={`relative w-full ${sizeClasses[size] || sizeClasses.md} bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-hidden border border-slate-200`}
+            className={`relative w-full ${sizeClasses[size] || sizeClasses.md} bg-white rounded-2xl shadow-2xl max-h-[90vh] overflow-hidden border border-black/10`}
           >
             {/* Header */}
             {(title || showCloseButton) && (
-              <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-orange-500 to-orange-600 border-b border-orange-700/20">
+              <div className="flex items-center justify-between px-6 py-4 bg-[color:var(--brand-primary)] border-b border-black/10">
                 {title && (
                   <h2 
                     id="modal-title"
@@ -251,7 +251,7 @@ const Modal = ({
                     onClick={handleClose}
                     aria-label="Modalni yopish"
                     type="button"
-                    className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 active:bg-white/30 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-orange-600"
+                    className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 active:bg-white/30 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/60 focus:ring-offset-2 focus:ring-offset-[color:var(--brand-primary)]"
                   >
                     <svg
                       className="w-4 h-4 text-white"
@@ -278,15 +278,15 @@ const Modal = ({
               className="overflow-y-auto max-h-[calc(90vh-80px)] overscroll-contain"
               style={{ 
                 scrollbarWidth: 'thin',
-                scrollbarColor: '#f97316 #f3f4f6'
+                scrollbarColor: '#6D4C41 #F3E7C7'
               }}
             >
               <div className="p-6">
                 {children}
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </Motion.div>
+        </Motion.div>
       )}
     </AnimatePresence>
   );

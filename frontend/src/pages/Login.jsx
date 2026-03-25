@@ -81,29 +81,29 @@ const Login = () => {
   const isLoading = userLoginMutation.isLoading || adminLoginMutation.isLoading;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[color:var(--brand-bg)] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+          <div className="w-16 h-16 bg-[color:var(--brand-primary)] rounded-lg flex items-center justify-center shadow-lg ring-1 ring-black/10">
             <span className="text-white font-bold text-2xl">🍽️</span>
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-[color:var(--brand-primary)]">
           Hisobingizga kiring
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-sm text-black/60">
           Yoki{' '}
-          <Link to="/register" className="font-medium text-orange-600 hover:text-orange-500">
+          <Link to="/register" className="font-medium text-[color:var(--brand-accent)] hover:opacity-90">
             yangi hisob yarating
           </Link>
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-white/80 backdrop-blur py-8 px-4 shadow-2xl border border-black/10 sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
                 {error}
               </div>
             )}
@@ -115,9 +115,9 @@ const Login = () => {
                   name="userType"
                   checked={!formData.isAdmin}
                   onChange={() => setFormData(prev => ({ ...prev, isAdmin: false, username: '', password: '' }))}
-                  className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300"
+                  className="h-4 w-4 text-[color:var(--brand-accent)] focus:ring-[color:var(--brand-accent)] border-black/20 bg-white"
                 />
-                <span className="ml-2 text-sm text-gray-700">Foydalanuvchi</span>
+                <span className="ml-2 text-sm text-black/80">Foydalanuvchi</span>
               </label>
               <label className="flex items-center cursor-pointer">
                 <input
@@ -125,14 +125,14 @@ const Login = () => {
                   name="userType"
                   checked={formData.isAdmin}
                   onChange={() => setFormData(prev => ({ ...prev, isAdmin: true, username: '', password: '' }))}
-                  className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300"
+                  className="h-4 w-4 text-[color:var(--brand-accent)] focus:ring-[color:var(--brand-accent)] border-black/20 bg-white"
                 />
-                <span className="ml-2 text-sm text-gray-700">Admin</span>
+                <span className="ml-2 text-sm text-black/80">Admin</span>
               </label>
             </div>
 
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="username" className="block text-sm font-medium text-black/70">
                 {formData.isAdmin ? 'Username yoki Telefon' : 'Telefon raqam'}
               </label>
               <div className="mt-1">
@@ -145,13 +145,13 @@ const Login = () => {
                   value={formData.username}
                   onChange={handleChange}
                   placeholder={formData.isAdmin ? 'Username yoki +998901234567' : '+998901234567'}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="appearance-none block w-full px-3 py-2 border border-black/15 bg-white text-[color:var(--brand-text)] rounded-md placeholder-black/40 focus:outline-none focus:ring-[color:var(--brand-accent)]/25 focus:border-[color:var(--brand-accent)]"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-sm font-medium text-black/70">
                 Parol
               </label>
               <div className="mt-1">
@@ -164,7 +164,7 @@ const Login = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Parolni kiriting"
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                  className="appearance-none block w-full px-3 py-2 border border-black/15 bg-white text-[color:var(--brand-text)] rounded-md placeholder-black/40 focus:outline-none focus:ring-[color:var(--brand-accent)]/25 focus:border-[color:var(--brand-accent)]"
                 />
               </div>
             </div>
@@ -184,17 +184,17 @@ const Login = () => {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+                <div className="w-full border-t border-black/10" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Yoki</span>
+                <span className="px-2 bg-[color:var(--brand-bg)] text-black/50">Yoki</span>
               </div>
             </div>
 
             <div className="mt-6">
               <Link
                 to="/register"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-orange-600 bg-orange-50 hover:bg-orange-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                className="w-full flex justify-center py-2 px-4 border border-black/10 rounded-md shadow-sm text-sm font-medium text-[color:var(--brand-primary)] bg-white hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[color:var(--brand-bg)] focus:ring-[color:var(--brand-accent)]/40"
               >
                 Ro'yxatdan o'tish
               </Link>

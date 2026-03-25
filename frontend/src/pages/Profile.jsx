@@ -58,34 +58,34 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-[color:var(--brand-bg)] py-8">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* 🧍 Profile info */}
-        <div className="bg-white shadow-sm rounded-2xl p-6">
+        <div className="bg-white/80 backdrop-blur border border-black/10 shadow-sm rounded-2xl p-6">
           <div className="text-center mb-6">
-            <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-3xl font-bold text-white shadow">
+            <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-[color:var(--brand-primary)] flex items-center justify-center text-3xl font-bold text-white shadow-lg ring-1 ring-black/10">
               {user?.ism?.charAt(0)?.toUpperCase() || 'U'}
             </div>
-            <h2 className="text-xl font-semibold text-gray-800">{user?.ism}</h2>
-            <p className="text-gray-500">{user?.telefon}</p>
+            <h2 className="text-xl font-semibold text-[color:var(--brand-primary)]">{user?.ism}</h2>
+            <p className="text-black/70">{user?.telefon}</p>
           </div>
 
           <div className="space-y-3 mb-6 text-sm">
             <div>
-              <span className="block font-medium text-gray-600">Ism va familiya:</span>
-              <p className="text-gray-900">{user?.ism}</p>
+              <span className="block font-medium text-black/60">Ism va familiya:</span>
+              <p className="text-[color:var(--brand-text)]">{user?.ism}</p>
             </div>
             <div>
-              <span className="block font-medium text-gray-600">Telefon raqam:</span>
-              <p className="text-gray-900">{user?.telefon}</p>
+              <span className="block font-medium text-black/60">Telefon raqam:</span>
+              <p className="text-[color:var(--brand-text)]">{user?.telefon}</p>
             </div>
             <div>
-              <span className="block font-medium text-gray-600">Manzil:</span>
-              <p className="text-gray-900">{user?.manzil || 'Ko‘rsatilmagan'}</p>
+              <span className="block font-medium text-black/60">Manzil:</span>
+              <p className="text-[color:var(--brand-text)]">{user?.manzil || 'Ko‘rsatilmagan'}</p>
             </div>
             <div>
-              <span className="block font-medium text-gray-600">Ro‘yxatdan o‘tgan sana:</span>
-              <p className="text-gray-900">{formatDate(user?.yaratilgan_vaqt)}</p>
+              <span className="block font-medium text-black/60">Ro‘yxatdan o‘tgan sana:</span>
+              <p className="text-[color:var(--brand-text)]">{formatDate(user?.yaratilgan_vaqt)}</p>
             </div>
           </div>
 
@@ -99,8 +99,8 @@ const Profile = () => {
         </div>
 
         {/* 🧾 Orders history */}
-        <div className="lg:col-span-2 bg-white shadow-sm rounded-2xl p-6">
-          <h2 className="text-lg font-semibold text-gray-800 mb-4 border-b pb-3">
+        <div className="lg:col-span-2 bg-white/80 backdrop-blur border border-black/10 shadow-sm rounded-2xl p-6">
+          <h2 className="text-lg font-semibold text-[color:var(--brand-primary)] mb-4 border-b border-black/10 pb-3">
             Buyurtmalar tarixi
           </h2>
 
@@ -109,10 +109,10 @@ const Profile = () => {
               <LoadingSpinner size="lg" />
             </div>
           ) : orders?.length === 0 ? (
-            <div className="text-center py-10 text-gray-600">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-gray-100">
+            <div className="text-center py-10 text-black/70">
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-white border border-black/10">
                 <svg
-                  className="w-8 h-8 text-gray-400"
+                  className="w-8 h-8 text-black/40"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -133,34 +133,34 @@ const Profile = () => {
               {orders.map((order) => (
                 <div
                   key={order.id}
-                  className="border border-gray-200 rounded-xl p-4 hover:shadow-sm transition"
+                  className="border border-black/10 rounded-xl p-4 hover:bg-black/5 hover:shadow-sm transition"
                 >
                   <div className="flex justify-between items-start mb-2">
                     <div>
-                      <h3 className="font-semibold text-gray-800">
+                      <h3 className="font-semibold text-[color:var(--brand-primary)]">
                         Buyurtma #{order.id}
                       </h3>
-                      <p className="text-xs text-gray-500">{formatDate(order.sana)}</p>
+                      <p className="text-xs text-black/50">{formatDate(order.sana)}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-orange-600 font-bold">
+                      <p className="text-[color:var(--brand-accent)] font-bold">
                         {order.umumiy_summa?.toLocaleString()} so‘m
                       </p>
-                      <p className="text-sm text-gray-500 capitalize">
+                      <p className="text-sm text-black/60 capitalize">
                         {order.tolov_turi}
                       </p>
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600 space-y-1">
+                  <div className="text-sm text-black/70 space-y-1">
                     <div className="flex justify-between">
                       <span>Mahsulot:</span>
-                      <span className="font-medium text-gray-800">
+                      <span className="font-medium text-[color:var(--brand-text)]">
                         {order.ovqat_nomi}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span>Miqdor:</span>
-                      <span className="font-medium text-gray-800">
+                      <span className="font-medium text-[color:var(--brand-text)]">
                         {order.miqdor} ta
                       </span>
                     </div>
@@ -180,34 +180,34 @@ const Profile = () => {
       >
         <form onSubmit={handleEditSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Ism va familiya</label>
+            <label className="block text-sm font-medium text-black/70 mb-1">Ism va familiya</label>
             <input
               type="text"
               value={editForm.ism}
               onChange={(e) => setEditForm({ ...editForm, ism: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
+              className="w-full px-3 py-2 border border-black/15 bg-white text-[color:var(--brand-text)] rounded-lg focus:ring-2 focus:ring-[color:var(--brand-accent)]/25 focus:border-[color:var(--brand-accent)] outline-none"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Telefon raqam</label>
+            <label className="block text-sm font-medium text-black/70 mb-1">Telefon raqam</label>
             <input
               type="tel"
               value={editForm.telefon}
               onChange={(e) => setEditForm({ ...editForm, telefon: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
+              className="w-full px-3 py-2 border border-black/15 bg-white text-[color:var(--brand-text)] rounded-lg focus:ring-2 focus:ring-[color:var(--brand-accent)]/25 focus:border-[color:var(--brand-accent)] outline-none"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Manzil</label>
+            <label className="block text-sm font-medium text-black/70 mb-1">Manzil</label>
             <textarea
               rows={3}
               value={editForm.manzil}
               onChange={(e) => setEditForm({ ...editForm, manzil: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none resize-none"
+              className="w-full px-3 py-2 border border-black/15 bg-white text-[color:var(--brand-text)] rounded-lg focus:ring-2 focus:ring-[color:var(--brand-accent)]/25 focus:border-[color:var(--brand-accent)] outline-none resize-none"
               required
             />
           </div>

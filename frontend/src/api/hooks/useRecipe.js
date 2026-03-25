@@ -1,6 +1,29 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '../index.jsx';
 
+const buildRecipePayload = (recipeData) => {
+    const hasFile =
+        typeof File !== 'undefined' &&
+        recipeData?.image_file instanceof File;
+
+    if (!hasFile) {
+        const { image_file, ...jsonPayload } = recipeData || {};
+        return { data: jsonPayload, config: undefined };
+    }
+
+    const formData = new FormData();
+    Object.entries(recipeData || {}).forEach(([key, value]) => {
+        if (value == null || key === 'image_file') return;
+        formData.append(key, String(value));
+    });
+    formData.append('image', recipeData.image_file);
+
+    return {
+        data: formData,
+        config: { headers: { 'Content-Type': 'multipart/form-data' } }
+    };
+};
+
 // Mock data for development
 const mockRecipes = [
     {
@@ -92,7 +115,8 @@ export const useCreateRecipe = () => {
     
     return useMutation({
         mutationFn: async (recipeData) => {
-            const response = await api.post('/recipes', recipeData);
+            const { data, config } = buildRecipePayload(recipeData);
+            const response = await api.post('/recipes', data, config);
             return response.data;
         },
         onSuccess: () => {
@@ -107,7 +131,8 @@ export const useUpdateRecipe = () => {
     
     return useMutation({
         mutationFn: async ({ id, ...recipeData }) => {
-            const response = await api.put(`/recipes/${id}`, recipeData);
+            const { data, config } = buildRecipePayload(recipeData);
+            const response = await api.put(`/recipes/${id}`, data, config);
             return response.data;
         },
         onSuccess: (data) => {
@@ -131,4 +156,3 @@ export const useDeleteRecipe = () => {
         }
     });
 };
-

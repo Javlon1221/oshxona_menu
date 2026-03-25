@@ -20,20 +20,44 @@ html {
   scroll-behavior: smooth;
 }
 
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-[color:var(--brand-bg)] text-[color:var(--brand-text)] antialiased;
+  }
+
+  ::selection {
+    background: rgba(255, 112, 67, 0.25);
+  }
+}
+
+@layer base {
+  :root {
+    --brand-bg: #FFF8E1;
+    --brand-text: #2E2E2E;
+    --brand-primary: #6D4C41;
+    --brand-secondary: #4CAF50;
+    --brand-accent: #FF7043;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #F3E7C7;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #f97316;
+  background: #6D4C41;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ea580c;
+  background: #5A3F36;
 }
