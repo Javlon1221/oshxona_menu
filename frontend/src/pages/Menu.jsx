@@ -31,7 +31,7 @@ const Menu = () => {
             setFilteredRecipes(filtered);
         }
     }, [recipes, searchTerm, priceFilter]);
-
+    // filterlarni tozalash funksiyasi
     const clearFilters = () => {
         setSearchTerm('');
         setPriceFilter({ min: 0, max: 100000 });

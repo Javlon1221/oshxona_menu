@@ -108,7 +108,7 @@ const Profile = () => {
             <div className="flex justify-center py-10">
               <LoadingSpinner size="lg" />
             </div>
-          ) : orders?.length === 0 ? (
+          ) : !orders || orders.length === 0 ? (
             <div className="text-center py-10 text-black/70">
               <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-white border border-black/10">
                 <svg
